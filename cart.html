@@ -9,9 +9,38 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/alert.css">
+  <link rel="stylesheet" href="css/cart.css">
 </head>
 
 <body>
+  <!-- Address Modal -->
+  <div class="modal-background" id="modal-background">
+    <div class="container modal-container">
+      <h2>Direccion</h2>
+      
+      <form action="" class="modal_form" id="modal_form">
+        <div class="form-modal-item">
+          <label for="street">Calle:</label>
+          <input type="text" class="modal_item" id="street">
+        </div>
+        <div class="form-modal-item">
+          <label for="number">Numero:</label>
+          <input type="number" class="modal_item" id="number">
+        </div>
+        <div class="form-modal-item">
+          <label for="corner">Esquina:</label>
+          <input type="text" class="modal_item" id="corner">          
+        </div>
+      </form>
+      <div class="modal-buttons">
+        <button class="btn btn-outline-primary" id="modal-cancel">Cancelar</button>
+        <button class="btn btn-primary" id="modal-confirm" >Aplicar</button>        
+      </div>
+
+    </div>
+  </div>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -43,10 +72,80 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+
+    <div id="cart-container">
+
+      <div class="left-card">
+        <div class="container table-container" id="table-container">
+
+        </div>
+        <div class="container table-container" id="new-table-container">
+
+        </div>
       </div>
+
+
+      <!-- card where you can finalize de buy -->
+      <div class="right-card">
+        <div class="finalize-card" id="finalize-card">
+          <div class="finalize-card_title mb-3">
+            <h2 class="finalize-title">Finalizar compra</h2>
+          </div>
+          <div class="finalize-card_content">
+            <div class="conatiner final-price" id="final-price">
+    
+            </div>
+    
+            <div class="address-container mb-3">
+              <label for="address-btn">Dirección de envio
+                <span class="fas fa-info-circle m-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="
+                Direccion a donde enviaremos tu compra.
+                La velocidad dependera de el tipo de envio
+              " id="select-info"></span>
+              </label>
+              
+              <button type="button" class="btn btn-primary w-50" id="address-btn" onclick="showTheModal()">
+                <span class="fas fa-plus-circle"></span>
+                Editar direccion
+              </button>
+              <div class="mt-3" id="new-address">Aun no hay Direccion</div>
+            </div>
+    
+            <div class="select-container container mb-3" id="select-container">
+    
+              <label for="select">Tipo de envio</label>
+              <span class="fas fa-info-circle m-2" data-bs-toggle="tooltip" data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="
+              Premium: envio de 2 a 5 días.
+              Express: envio de 5 a 8 días.
+              Standard: envio de 12 a 15 días.
+              " id="select-info"></span>
+              <select class="form-select" aria-label="Default select example" id="select">
+                <option value="0" selected>Seleccione un tipo de envio</option>
+                <option value="premium">Premium(15%)</option>
+                <option value="express">Express(7%)</option>
+                <option value="standard">Standard(5%)</option>
+              </select>
+    
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary fw-bold d-none d-md-block finish-buy-btn" id="finish-buy-btn">Finalizar compra</button>
+        </div>
+      </div>
+      
+
+    </div>
+    <div class="finish-buy-btn-fixed-container d-block d-md-none">
+      <button type="button" class="btn btn-primary finish-buy-btn-fixed" id="finish-buy-btn">Finalizar compra</button>
+    </div>
+    <!-- Error Alert -->
+    <div class="alert alert-danger" id="alert" role="alert">
+    </div>
+    <!-- Success Alert -->
+    <div class="alert alert-info" id="successAlert" role="alert">
     </div>
   </main>
   <footer class="text-muted">

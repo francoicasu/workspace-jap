@@ -52,17 +52,25 @@ function showProduct(arr){
                 </div>
                 
                 <div class="row d-flex align-items-center justify-content-center w-50">
+                    <div class="mt-4">
+                        <p>${product.soldCount} Vendidos</p>
+                    </div>
                     <div class="mb-4 mt-4">
-                        <h5 class="fw-bold">Precio</h5>
-                        ${product.currency} ${product.cost}
+                        <h3 class="fw-bold">${product.name}</h3>
+                        <p class="fs-3">${product.currency} ${product.cost}</p>
                     </div>
                     <div class="mb-4 mt-4">
                         <h5 class="fw-bold">Categoria</h5>
                         ${product.category}
                     </div>
-                    <div class="mb-4 mt-4">
-                        <h5 class="fw-bold">Cantidad de vendidos</h5>
-                        ${product.soldCount}
+                    <button type="button" class="btn btn-primary m-1 w-50" id="buy-btn" onclick="buy()">Comprar</button>
+                    <button type="button" class="btn btn-outline-primary w-50" id="cart-btn" onclick="addToCart()">Agregar al carrito</button>
+                    <div>
+                        <p class="protect-buy">
+                            <span class="fa fa-shield-alt"></span>
+                            Compra protegida. 
+                            <span class="protect-buy_text">Si no recibes el producto esperado te devolvemos el dinero.</span> 
+                        </p>
                     </div>
                 </div>
             </div>
@@ -190,6 +198,7 @@ function addComment(){
     
 }
 
+// error alert
 const ALERT_ERROR = document.getElementById('alert')
 const ERR_MSG = 'Por favor completa el formulario para enviar un comentario'
 
@@ -201,6 +210,19 @@ function showError(){
     
     setTimeout(()=>{
         ALERT_ERROR.classList.remove('show')
+    }, 3000)
+}
+
+// success alert
+const ALERT_SUCCESS = document.getElementById('successAlert')
+
+function showSuccessAlert(message){
+  ALERT_SUCCESS.classList.add('show')
+    
+  ALERT_SUCCESS.innerText = message
+
+    setTimeout(()=>{
+      ALERT_SUCCESS.classList.remove('show')
     }, 3000)
 }
 
@@ -221,6 +243,49 @@ function removeActiveCommentArea(){
     selectContainer.classList.remove('active')
 }
 
+// buy functions
+
+function saveCart(){
+   
+    const productInfo = currentSelectProduct
+    const product = {
+        id: productInfo.id,
+        name: productInfo.name,
+        count: 1,
+        unitCost: productInfo.cost,
+        currency: productInfo.currency,
+        image: productInfo.images[0] 
+    }
+    const SUCCESS_MESSAGE = 'Producto agregado al carrito'
+
+    showSuccessAlert(SUCCESS_MESSAGE)
+    
+    if(localStorage.getItem('cartProduct') === null){
+        let newProductCart = []
+        newProductCart.push(product)
+        localStorage.setItem('cartProduct', JSON.stringify(newProductCart))
+    } else{
+        let newProductCart = JSON.parse(localStorage.getItem('cartProduct'))
+        for(const p in newProductCart){
+            if(product.id === newProductCart[p].id){
+                ++newProductCart[p].count
+            }
+        }
+        newProductCart.push(product)
+        localStorage.setItem('cartProduct', JSON.stringify(newProductCart))
+    }
+
+}
+
+function buy(){
+    saveCart()
+    window.location = 'cart.html'
+}
+
+function addToCart(){
+    saveCart()
+}
+
 
 document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -231,7 +296,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
      .then((resultObj => {
         if (resultObj.status === 'ok'){
             currentSelectProduct = resultObj.data
-
             showProduct(currentSelectProduct)
             ShowRelatedProducts(currentSelectProduct)
         }

@@ -244,3 +244,17 @@ a.custom-card:hover {
 .card{
   cursor: pointer;
 }
+
+#table-img{
+  width: 120px;
+}
+
+.protect-buy{
+  color: #0462af;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.protect-buy_text{
+  color: #ffffff;
+}

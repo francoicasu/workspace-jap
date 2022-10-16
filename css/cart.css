@@ -1,0 +1,361 @@
+#cart-container{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.left-card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.finalize-card{
+    background-color: #212529;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    height: 90%;
+    margin-top: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    overflow: hidden;
+}
+
+#select-info{
+    cursor: pointer;
+}
+
+.finalize-card_content{
+    width: 100%;
+    text-align: center;
+}
+
+.finish-buy-btn{
+    padding: 10px;
+    width: 100%;
+}
+
+.finish-buy-btn-fixed-container{
+    padding: 20px;
+    background-color: #212529;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.finish-buy-btn-fixed{
+    font-weight: 900;
+    font-size: 1.5em;
+    width: 100%;
+    border-radius: 0;
+    padding: 10px 0;
+}
+
+#address-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#address-btn span{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.address-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#new-address{
+    color: #0087F7;
+    font-weight: bold;
+}
+
+.delete-address{
+    color: #f2f2f2;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+.delete-address:hover{
+    color: rgb(255, 0, 85);
+}
+
+.select-container{
+    text-align: center;
+}
+
+.finalize-title{
+    font-weight: 900;
+}
+
+/* Table Style */
+.table-container{
+    border-radius: 10px;
+    width: 90%;
+    padding: 0;
+}
+
+.product-title{
+    padding: 5px 0;
+    text-align: center;
+}
+
+.cart-product-container{
+    width: 100%;
+    padding: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    overflow: hidden;
+
+    color: white;
+    background-color: #212529;
+}
+
+.product-table-content{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 10px;
+    overflow: hidden;
+}
+
+.product-price{
+    width: 100%;
+    text-align: center;
+}
+
+
+.product-image{
+    width: 50%;
+}
+
+/* Counter Style */
+.counter-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 10px;
+}
+
+.counter-btn-container{
+    padding: 5px 10px;
+    background-color: #0087F7;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.counter{
+    width: 50px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+.plus{
+    border-radius: 0px 20px 20px 0;
+}
+
+.minus{
+    border-radius: 20px 0 0 20px;
+}
+
+.cart-product-action-buttons{
+    color: #f2f2f2;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #0087F7;
+    font-weight: 900;
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.cart-product-action-buttons:hover{
+    background-color: #0d6efd;
+}
+
+.subtotal{
+    width: 100%;
+    text-align: center;
+}
+
+.subtotal p{
+    margin: 0;
+}
+
+.cart-product-container .product-title h2{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+main{
+    position: relative;
+}
+
+/* Modal style */
+.modal-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 80%;
+    padding: 20px 20px;
+    border-radius: 15px;
+    background-color: #212529;
+    color: white;
+}
+
+.modal_form{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-modal-item{
+    position: relative;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal_item{
+    position: relative;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;    
+}
+
+.form-modal-item::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 5px;
+    background-color: #3c4249;
+    transition: all .3s ease;
+    z-index: 9;
+}
+
+
+.form-modal-item::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 5px;
+    background-color: #0087F7;
+    transition: all .3s ease;
+    z-index: 999;
+}
+
+.form-modal-item:hover::after{
+    width: 100%;
+}
+.active.form-modal-item::after{
+    width: 100%;
+}
+
+.modal-background{
+    opacity: 0;
+    visibility: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.877);
+    z-index: 999;
+    transition: all .5s ease;
+    animation: closeModal .6s ease both;
+}
+
+.modal-background.show{
+    animation: showModal .5s ease both;
+}
+
+@keyframes showModal {
+    0%{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-1000px);
+    }
+    100%{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+@keyframes closeModal {
+    0%{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-1000px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #cart-container{
+        flex-wrap: wrap;
+    }
+
+    .product-table-content{
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    
+}
+
+@media screen and (max-width: 992px) {
+    #cart-container{
+        flex-wrap: wrap;
+    }
+
+}

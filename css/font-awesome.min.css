@@ -953,6 +953,9 @@ readers do not read off random characters that represent icons */
 
 .fa-circle-notch:before {
   content: "\f1ce"; }
+  
+.fa-circle-xmark{
+  content: "\f057";}
 
 .fa-city:before {
   content: "\f64f"; }
