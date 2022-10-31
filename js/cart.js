@@ -2,23 +2,79 @@ const cartContainer = document.getElementById('cart-container')
 const tableContainer = document.getElementById('table-container')
 const newTableContainer = document.getElementById('new-table-container')
 const finalizeCard = document.getElementById('finalize-card')
+const finalizeBuyBtn = document.getElementById('finish-buy-btn')
 let cartProductList = []
 let newProductsArr = []
 
-// modal variable
+// address modal
 const addAdress = document.getElementById('address-btn')
 const modal = document.getElementById('modal-background')
+const modalContainer = document.getElementById('modal-container')
 const modalConfirmBtn = document.getElementById('modal-confirm')
 const modalCancelBtn = document.getElementById('modal-cancel')
+const modalCloseBtn = document.getElementById('modal-close')
 const modalForm = document.getElementById('modal_form')
 const modalInputs = document.querySelectorAll('.modal_item')
 const modalContainerInputs = document.querySelectorAll('.form-modal-item')
+// payment modal
+const paymentModal = document.getElementById('payment-modal-background')
 
-function showProductsCart(arr){
-  let appendToHtml = ''
+// function showProductsCart(arr){
+//   let appendToHtml = ''
   
-  for(const products of arr){
-    appendToHtml = `
+//   for(const products of arr){
+//     appendToHtml = `
+//       <div class="container cart-product-container">
+//         <div class="product-title">
+//           <h2>${products.name}</h2>
+//         </div>
+//         <div class="product-table-content">
+//           <div class="product-image">
+//             <img class="w-100" src="${products.image}">
+//           </div>
+
+//           <div class="product-price">
+//             <p>costo: ${products.currency} ${products.unitCost}</p>
+//           </div>
+
+//           <div class="counter-container">
+//             <div class="counter-btn-container minus" onclick="decrease()" id="minus">
+//               <span class="fas fa-minus"></span>
+//             </div>
+
+//             <div class="counter" id="counter">${products.count}</div>
+
+//             <div class="counter-btn-container plus" onclick="increase()" id="plus">
+//               <span class="fas fa-plus"></span>
+//             </div>
+
+//           </div>
+
+//           <div class="subtotal">
+//             <p>
+//               subtotal:
+//             </p>
+//             <p id="subtotal">
+//               ${products.currency} ${products.unitCost}
+//             </p>
+//           </div> 
+//         </div>
+//         <div class="cart-product-action-buttons">
+//             <span class="fas fa-trash"></span>
+//             Eliminar
+//         </div>
+//       </div>
+//     `
+//   }
+
+//   tableContainer.innerHTML = appendToHtml
+// }
+
+function showNewProductsCart(arr){
+  let appendToHtml = ''
+  for (const products of arr){
+
+      appendToHtml += `
       <div class="container cart-product-container">
         <div class="product-title">
           <h2>${products.name}</h2>
@@ -27,91 +83,40 @@ function showProductsCart(arr){
           <div class="product-image">
             <img class="w-100" src="${products.image}">
           </div>
-
+    
           <div class="product-price">
             <p>costo: ${products.currency} ${products.unitCost}</p>
           </div>
-
+    
           <div class="counter-container">
-            <div class="counter-btn-container minus" onclick="decrease()" id="minus">
+            <div class="counter-btn-container minus" onclick="newDecreased(${products.id})" id="minus">
               <span class="fas fa-minus"></span>
             </div>
-
+    
             <div class="counter" id="counter">${products.count}</div>
-
-            <div class="counter-btn-container plus" onclick="increase()" id="plus">
+    
+            <div class="counter-btn-container plus" onclick="newIncrease(${products.id})" id="plus">
               <span class="fas fa-plus"></span>
             </div>
-
+    
           </div>
-
+    
           <div class="subtotal">
             <p>
               subtotal:
             </p>
-            <p id="subtotal">
-              ${products.currency} ${products.unitCost}
+            <p id="new-subtotal">
+              ${products.currency} ${products.unitCost * products.count}
             </p>
           </div> 
         </div>
-        <div class="cart-product-action-buttons">
+        <div class="cart-product-action-buttons" onclick="deleteProduct(${products.id})">
             <span class="fas fa-trash"></span>
             Eliminar
         </div>
       </div>
-    `
+      `
   }
-
-  tableContainer.innerHTML = appendToHtml
-}
-
-function showNewProductsCart(arr){
-  let appendToHtml = ''
-  for (const products of arr){
-    appendToHtml += `
-    <div class="container cart-product-container">
-      <div class="product-title">
-        <h2>${products.name}</h2>
-      </div>
-      <div class="product-table-content">
-        <div class="product-image">
-          <img class="w-100" src="${products.image}">
-        </div>
-  
-        <div class="product-price">
-          <p>costo: ${products.currency} ${products.unitCost}</p>
-        </div>
-  
-        <div class="counter-container">
-          <div class="counter-btn-container minus" onclick="newDecreased(${products.id})" id="minus">
-            <span class="fas fa-minus"></span>
-          </div>
-  
-          <div class="counter" id="counter">${products.count}</div>
-  
-          <div class="counter-btn-container plus" onclick="newIncrease(${products.id})" id="plus">
-            <span class="fas fa-plus"></span>
-          </div>
-  
-        </div>
-  
-        <div class="subtotal">
-          <p>
-            subtotal:
-          </p>
-          <p id="new-subtotal">
-            ${products.currency} ${products.unitCost * products.count}
-          </p>
-        </div> 
-      </div>
-      <div class="cart-product-action-buttons" onclick="deleteProduct(${products.id})">
-          <span class="fas fa-trash"></span>
-          Eliminar
-      </div>
-    </div>
-    `
-  }
-
 
   newTableContainer.innerHTML = appendToHtml
 }
@@ -145,7 +150,7 @@ function showSuccessAlert(message){
 
 
 // Modal of address
-function showTheModal(){
+function showTheModal(modal){
   modal.classList.add('show')
 }
 
@@ -207,12 +212,15 @@ function saveAddres(){
 }
 
 
-function closeModal(){
-  modalCancelBtn.addEventListener('click', ()=>{
-    removeActiveClass()
-    modal.classList.remove('show')
-  })
+function closeModal(modal){
+  removeActiveClass()
+  modal.classList.remove('show')
 }
+
+function closePaymentModal(){
+  paymentModal.classList.remove('active')
+}
+
 
 // this function is for addEventlistener of modalContainerInputs, this function add the 'active' class to clicked container
 function focusInputModal(){
@@ -253,12 +261,13 @@ function newIncrease(id){
   for(const product of currentCart){
     if(product.id === id){
       product.count += 1
+      
     }
   }
 
   localStorage.setItem('cartProduct', JSON.stringify(currentCart))
-  
   showNewProductsCart(currentCart)
+  subTotalPlus()
 }
 
 function newDecreased(id){
@@ -275,6 +284,7 @@ function newDecreased(id){
   localStorage.setItem('cartProduct', JSON.stringify(currentCart))
   
   showNewProductsCart(currentCart)
+  subTotalPlus()
 }
 
 // Subtotal multiply
@@ -304,10 +314,171 @@ function deleteProduct(id){
 
   localStorage.setItem('cartProduct', JSON.stringify(currentCart))
   showSuccessAlert(SUCCESS_MESSAGE)
+  showNoProducts()
   showNewProductsCart(currentCart)
+  subTotalPlus()
 }
 
+// sum of all subtotal's
+const select = document.getElementById('select')
+const priceTable = document.getElementById('price-table')
 
+function subTotalPlus(){
+
+  const subtotals = document.querySelectorAll('#new-subtotal')
+  let UyuToDls;
+  let arrToSum = []
+  let allSubtotals = []
+  let appendToHtml = ''
+  let sum;
+  
+  for (const result of subtotals){
+    let num = parseInt(result.innerText.split(' ')[1])
+    allSubtotals += `
+    <div class="price-content">
+      <div class="price-text-container">
+        <p class="price-title">Subtotal: </p>
+        <p class="price-description">Costo unitaro del producto por cantidad</p>
+      </div>
+      <p>${result.innerText}</p>
+    </div>
+    `
+    UyuToDls = num
+    if(result.innerText.includes('UYU')){
+      UyuToDls = num / 41.20
+      arrToSum.push(parseFloat(UyuToDls.toFixed(2)))
+    } else {
+      arrToSum.push(num)
+    }
+    
+  }
+
+  if(arrToSum.length > 0) sum = arrToSum.reduce((total, value) => value + total)
+
+  let tax = parseInt(select.value)
+  let taxResult = sum * (tax + 100) / 100
+  
+  if (!isNaN(taxResult.toFixed(2))){
+    appendToHtml = `
+    ${allSubtotals}
+      <div class="price-content">
+        <div class="price-text-container">
+          <p class="price-title">Costo de envio: </p>
+          <p class="price-description">Segun el tipo de envio</p>
+        </div>
+        <p>USD ${(tax * sum / 100).toFixed(2)}</p>
+      </div>
+
+      <div class="price-content total">
+        <div class="price-text-container">
+          <p class="price-title">Total($): </p>
+        </div>
+        <p class="prcie-total">USD ${taxResult.toFixed(2)}</p>
+      </div>
+    `
+  }
+
+
+  
+  priceTable.innerHTML = appendToHtml
+}
+
+// disabled inputs
+const creditCardCheck = document.getElementById('credit-card-check')
+const accountNumberCheck = document.getElementById('account-number-check')
+const formCreditCart = document.getElementById('modal_form-credit-card')
+const accountNumberInput = document.getElementById('account-number')
+
+function disabledInputs(){
+
+
+  for (const child of formCreditCart.children){
+    if(creditCardCheck.checked){
+      child.children[1].disabled = false
+      accountNumberCheck.checked = false
+    } else {
+      child.children[1].disabled = true
+      accountNumberCheck.checked = true
+    }
+  }
+
+}
+
+function disabledInputAccountNumber(){
+
+  if(accountNumberCheck.checked){
+    accountNumberInput.disabled = false
+    creditCardCheck.checked = false
+  } else {
+    creditCardCheck.checked = true
+    accountNumberInput.disabled = true
+  }
+
+}
+
+function finalizeBuy(){
+  const SUCCESS_MESSAGE = 'Su compra ha finalizado con exito'
+  const textError = document.getElementById('text-error')
+
+  if (!localStorage.getItem('address') && select.value === '0'){
+
+    select.classList.add('is-invalid')
+    textError.classList.add('show-error')
+
+  } else if(!localStorage.getItem('address')){
+
+    select.classList.remove('is-invalid')
+    textError.classList.add('show-error')
+
+  } else if (select.value === '0'){
+
+    textError.classList.remove('show-error')
+    select.classList.add('is-invalid')
+    
+  } else {
+
+    textError.classList.remove('show-error')
+    select.classList.remove('is-invalid')
+
+  }
+
+  const paymentError = document.getElementById('payment-error')
+
+  for (const inputs of formCreditCart.children){
+    if (creditCardCheck.checked && inputs.children[1].value === ''){
+      paymentError.classList.add('show-error')
+    } else if (accountNumberCheck.checked && accountNumberInput.value === ''){
+      paymentError.classList.add('show-error')
+    } else {
+      paymentError.classList.remove('show-error')
+    }
+
+    if (creditCardCheck.checked && inputs.children[1].value !== '' || accountNumberCheck.checked && accountNumberInput.value !== '' && localStorage.getItem('address') && select.value !== '0'){
+      showSuccessAlert(SUCCESS_MESSAGE)
+    }
+  }
+
+}
+
+function goToCategory(){
+  window.location = 'categories.html'
+}
+
+function showNoProducts(){
+  cartContainer.innerHTML = `
+  
+    <div class="no-product">
+      <div class="no-product-content">
+        <h3>No hay ningun producto en el carrito <span class="fas fa-sad-tear"></span></h3>
+        <p>Explora en las categorias y selecciona entre cualquiera de nuestros productos</p>
+        <button onclick="goToCategory()" type="button" class="btn btn-primary">Explorar</button>
+      </div>
+    </div>
+  
+  `
+}
+
+// event Dom Contetn loaded
 document.addEventListener('DOMContentLoaded', ()=>{
     let userId = '25801'
 
@@ -315,22 +486,42 @@ document.addEventListener('DOMContentLoaded', ()=>{
       .then(resultObj =>{
         if (resultObj.status === 'ok'){
             cartProductList = resultObj.data.articles
-            showProductsCart(cartProductList)
-
-            if(localStorage.getItem('cartProduct')){
-              newProductsArr = JSON.parse(localStorage.getItem('cartProduct'))
+            newProductsArr = JSON.parse(localStorage.getItem('cartProduct'))
+            if(newProductsArr.length > 0){
               showNewProductsCart(newProductsArr)
+            } else {
+              showNoProducts()
             }
-
+            
             // address modal
             showAddress()
             saveAddres()
-            closeModal()
+            subTotalPlus()
+
+            // check inputs disabled
+            disabledInputs()
+            disabledInputAccountNumber()
+            creditCardCheck.addEventListener('change', ()=>{
+              disabledInputs()
+              disabledInputAccountNumber()
+            })
+            accountNumberCheck.addEventListener('change', ()=>{
+              disabledInputAccountNumber()
+              disabledInputs()
+            })
+
+            select.addEventListener('change', ()=>{
+              subTotalPlus()
+            })
 
             // add the 'active' class to each of inputs of the modal  
             modalContainerInputs.forEach(element => {
               element.addEventListener('click', focusInputModal)
             });
+
+            finalizeBuyBtn.addEventListener('click', ()=>{
+              finalizeBuy()
+            })
         }
     })
 })

@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .right-card{
@@ -66,6 +65,44 @@
     border-radius: 0;
     padding: 10px 0;
 }
+
+.price-container{
+    margin: 5px auto;
+}
+
+.price-table{
+    background-color: #3c4249;
+    border-radius: 10px;
+}
+
+.price-text-container{
+    text-align: initial;
+}
+
+.price-text-container .price-title{
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.prcie-total{
+    font-size: 1.4em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.price-content {
+    color: rgb(192, 188, 188);
+    border-bottom: #212529 solid 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.total{
+    color: white;
+}
+
 
 #address-btn{
     display: flex;
@@ -268,6 +305,20 @@ main{
     background-color: #3c4249;
     transition: all .3s ease;
     z-index: 9;
+}
+
+.text-error{
+    display: none;
+    color: rgb(202, 65, 65);
+}
+
+.text-error.show-error{
+    display: block;
+}
+
+.no-product{
+    width: 100%;
+    text-align: center;
 }
 
 

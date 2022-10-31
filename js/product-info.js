@@ -254,7 +254,7 @@ function saveCart(){
         count: 1,
         unitCost: productInfo.cost,
         currency: productInfo.currency,
-        image: productInfo.images[0] 
+        image: productInfo.images[0]
     }
     const SUCCESS_MESSAGE = 'Producto agregado al carrito'
 
@@ -268,13 +268,15 @@ function saveCart(){
         let newProductCart = JSON.parse(localStorage.getItem('cartProduct'))
         for(const p in newProductCart){
             if(product.id === newProductCart[p].id){
-                ++newProductCart[p].count
+                product.count = newProductCart[p].count
+                ++product.count
+                newProductCart.splice(p, 1)
             }
         }
         newProductCart.push(product)
         localStorage.setItem('cartProduct', JSON.stringify(newProductCart))
     }
-
+    
 }
 
 function buy(){
