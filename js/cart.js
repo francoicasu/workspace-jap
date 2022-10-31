@@ -314,8 +314,12 @@ function deleteProduct(id){
 
   localStorage.setItem('cartProduct', JSON.stringify(currentCart))
   showSuccessAlert(SUCCESS_MESSAGE)
-  showNoProducts()
-  showNewProductsCart(currentCart)
+  if(JSON.parse(localStorage.getItem('cartProduct')).length > 0){
+    showNewProductsCart(currentCart)
+  } else {
+    showNoProducts()
+  }
+  
   subTotalPlus()
 }
 
