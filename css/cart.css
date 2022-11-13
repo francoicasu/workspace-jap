@@ -262,22 +262,28 @@ main{
 /* Modal style */
 .modal-container{
     display: flex;
-    align-items: center;
     justify-content: space-around;
+    align-items: center;
     flex-direction: column;
     width: 80%;
     padding: 20px 20px;
     border-radius: 15px;
-    background-color: #212529;
-    color: white;
+    background-color: #eee;
+}
+
+.modal-container h2{
+    font-weight: 700;
 }
 
 .modal_form{
+    background-color: #fff;
+    border-radius: 20px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 20px;
 }
 
 .form-modal-item{
@@ -302,7 +308,8 @@ main{
     transform: translateX(-50%);
     width: 100%;
     height: 5px;
-    background-color: #3c4249;
+    border-radius: 20px;
+    background-color: #bbbbbb;
     transition: all .3s ease;
     z-index: 9;
 }
@@ -355,7 +362,7 @@ main{
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.877);
+    background-color: rgba(0, 0, 0, 0.712);
     z-index: 999;
     transition: all .5s ease;
     animation: closeModal .6s ease both;
@@ -363,6 +370,10 @@ main{
 
 .modal-background.show{
     animation: showModal .5s ease both;
+}
+
+.modal-buttons{
+    margin: auto;
 }
 
 @keyframes showModal {
@@ -400,6 +411,10 @@ main{
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+    }
+
+    .modal_form{
+        width: 100%;
     }
     
 }

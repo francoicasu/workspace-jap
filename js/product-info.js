@@ -152,7 +152,6 @@ function relatedProducts(id){
 
 const message = document.getElementById('comment-msg')
 const score = document.getElementById('comment-score')
-
 const commentBtn = document.getElementById('comment-btn')
 
 // return a string with the full date
@@ -174,7 +173,6 @@ function addComment(){
     
     let messageValue = message.value
 
-
     let messageContent = {
         dateTime: FullDate(),
         description: messageValue,
@@ -183,7 +181,7 @@ function addComment(){
         user: localStorage.getItem('email')
     }
     if (messageValue === '' || score.value === ''){
-        showError()
+        showErrorAlert('Por favor completa el formulario para enviar un comentario')
     } else{
         newComment.push(messageContent)
         message.value = ''
@@ -193,37 +191,8 @@ function addComment(){
         selectContainer.classList.remove('active')
     }
     
-    
     showNewComments(newComment)
     
-}
-
-// error alert
-const ALERT_ERROR = document.getElementById('alert')
-const ERR_MSG = 'Por favor completa el formulario para enviar un comentario'
-
-// this function show an error message for 3 seconds
-function showError(){
-    ALERT_ERROR.classList.add('show')
-    
-    ALERT_ERROR.innerText = ERR_MSG
-    
-    setTimeout(()=>{
-        ALERT_ERROR.classList.remove('show')
-    }, 3000)
-}
-
-// success alert
-const ALERT_SUCCESS = document.getElementById('successAlert')
-
-function showSuccessAlert(message){
-  ALERT_SUCCESS.classList.add('show')
-    
-  ALERT_SUCCESS.innerText = message
-
-    setTimeout(()=>{
-      ALERT_SUCCESS.classList.remove('show')
-    }, 3000)
 }
 
 // this function is for save the newComment array in the localStorage with the 'newComment' key
@@ -256,9 +225,8 @@ function saveCart(){
         currency: productInfo.currency,
         image: productInfo.images[0]
     }
-    const SUCCESS_MESSAGE = 'Producto agregado al carrito'
 
-    showSuccessAlert(SUCCESS_MESSAGE)
+    showSuccessAlert('Producto agregado al carrito')
     
     if(localStorage.getItem('cartProduct') === null){
         let newProductCart = []
@@ -290,7 +258,6 @@ function addToCart(){
 
 
 document.addEventListener('DOMContentLoaded', ()=>{
-
 
     let id = localStorage.getItem('prod_id')
     // Fetch product by id
@@ -327,12 +294,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 message.value = ''
             })
 
-            commentBtn.addEventListener('click', (e)=>{
-                e.preventDefault()
+            commentBtn.addEventListener('click', ()=>{
                 addComment()
             })
 
             // commentBtn is disabled if the message is empty
+            if (message.value === ''){
+                commentBtn.disabled = true
+            }
             message.addEventListener('input', ()=>{
                 if(message.value !== ''){
                     commentBtn.disabled = false

@@ -2,18 +2,6 @@ const logBtn = document.getElementById('logBtn')
 
 const inputs = document.getElementsByTagName('input')
 
-const ALERT_ERROR = document.getElementById('alert')
-
-function showError(message){
-    ALERT_ERROR.classList.add('show')
-    
-    ALERT_ERROR.innerText = message
-
-    setTimeout(()=>{
-        ALERT_ERROR.classList.remove('show')
-    }, 3000)
-}
-
 document.addEventListener('DOMContentLoaded', ()=>{
     if(localStorage.getItem('email')){
         window.location = 'main.html'
@@ -31,21 +19,21 @@ const MESSAGE_PASS_ERROR = 'Rellena el campo Contraseña para poder continuar!'
 function isValid(){
 
     if(pass.value === '' && email.value === ''){
-        showError(MESSAGE_BOTH_ERROR)
+        showErrorAlert(MESSAGE_BOTH_ERROR)
 
         pass.classList.add('is-invalid')
         email.classList.add('is-invalid')
 
     } else if (email.value === '' || !email.value.includes('@')){
 
-        showError(MESSAGE_EMAIL_ERROR)
+        showErrorAlert(MESSAGE_EMAIL_ERROR)
 
         pass.classList.remove('is-invalid')
         email.classList.add('is-invalid')
 
     } else if(pass.value === ''){
 
-        showError(MESSAGE_PASS_ERROR)
+        showErrorAlert(MESSAGE_PASS_ERROR)
 
         email.classList.remove('is-invalid')
         pass.classList.add('is-invalid')

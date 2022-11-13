@@ -1,0 +1,174 @@
+body{
+    background-color: #f2f2f2;
+}
+
+.user-contet{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.setting-title{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.setting-title .title{
+    font-weight: 700;
+}
+
+.avatar{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar .avatar-name{
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: .9em;
+}
+
+.avatar-container{
+    width: 150px;
+    height: 150px;
+    background-color: #212529;
+    border-radius: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.label-input{
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+
+.change-img{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    bottom: -10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    color: #0087F7;
+    background-color: #f2f2f2;
+}
+
+.input-file{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.user-contet .left-content{
+    width: 50%;
+    list-style: none;
+}
+
+.user-contet .left-content .left-list{
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.user-contet .left-content .left-list a{
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-contet .left-content .left-list a::before{
+    content: '';
+    width: 0%;
+    height: 0%;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0087F7;
+    position: absolute;
+    transition: .3s ease;
+}
+
+.user-contet .left-content .left-list a:hover::before{
+    height: 100%;
+}
+
+.user-contet .left-content .left-list a.active::before{
+    content: '';
+    width: 0%;
+    height: 4px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0087F7;
+    position: absolute;
+    transition: .3s ease;
+}
+
+.user-contet .left-content .left-list a.active:hover::before{
+    width: 100%;
+}
+
+.user-contet .left-content .left-list a{
+    text-decoration: none;
+    color: #0087F7;
+}
+
+.rigth-content{
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.setting{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.setting-input-content{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+@media screen and (max-width: 768px){
+    #save-settings{
+        width: 100%;
+    }
+    .user-contet {
+        flex-wrap: wrap;
+    }
+
+    .left-content{
+        width: 100%;
+    }
+
+    .rigth-content{
+        width: 100%;
+    }
+}

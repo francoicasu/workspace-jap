@@ -47,14 +47,25 @@ const logOut = document.getElementById('log-out')
 
 const dropDown = document.getElementById('options_btn')
 
+const avatarNavProfile = document.querySelector('.avatar-nav-profile')
+
 logOut.addEventListener('click', ()=>{
   localStorage.removeItem('email')
+  localStorage.removeItem('userSettings')
 })
 
 if (localStorage.getItem('email')){
   dropDown.innerHTML = localStorage.getItem('email')
 } else {
   window.location = 'index.html'
+}
+
+if(localStorage.getItem('userSettings')){
+  let avatar = JSON.parse(localStorage.getItem('userSettings')).avatar
+
+  avatar !== '' ? avatarNavProfile.src = `data:image/png;base64,${avatar}` : avatarNavProfile.src = '../img/img_perfil.png'
+
+  
 }
 
 // Bootstrap tooltips

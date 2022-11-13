@@ -6,8 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/alert.css">
+  <link rel="stylesheet" href="css/profile.css">
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -29,14 +33,15 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
+      <a class="w-0 navbar-brand" href="main.html" id="logo-navbar">e•mercado</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between align-items-center">
+        <ul class="navbar-nav w-100 gap-4 justify-content-end align-items-center">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="main.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
@@ -48,9 +53,9 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="options_btn">
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="cart.html" id="my-cart">Mi Carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html" id="my-profile">Mi Perfil</a></li>
-              <li><a class="dropdown-item" href="index.html" id="log-out">Salir</a></li>
+              <li><a class="dropdown-item" href="my-profile.html" id="my-profile">Mi Perfil <img class="avatar-nav-profile" src="" alt=""></a></li>
+              <li><a class="dropdown-item" href="cart.html" id="my-cart">Mi Carrito <span class="nav-icon fas fa-shopping-cart"></span></a></li>
+              <li><a class="dropdown-item" href="index.html" id="log-out">Salir <span class="nav-icon fas fa-sign-out-alt"></span></a></li>
             </ul>
           </li>
         </ul>
@@ -59,11 +64,76 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="user-contet">
+        <div class="left-content">
+          <li class="left-list"><a href="#" class="active"><span class="pe-2 fas fa-user-circle"></span> Configuracion de la cuenta</a></li>
+        </div>
+        <div class="rigth-content">
+          <div class="setting-title mb-3">
+            <h2 class="title">Configuracion de la cuenta</h2>
+            <div class="avatar">
+
+              <div class="avatar-container">
+                <label for="inputFile" class="label-input">              
+                  <div class="change-img">
+                    <span class="fas fa-camera"></span>
+                  </div>
+                </label>
+                <input type="file" id="inputFile" class="input-file" accept="image/*">
+              </div>
+              <p class="avatar-name" id="avatar-name"></p>
+
+              <span class="fas fa-info-circle m-2" data-bs-toggle="tooltip" data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="Puedes cambiar la imagen de tu perfil haciendo click en ella, recomendamos imagenes del mismo tamaño de ancho y alto" id="select-info"></span>
+              
+            </div>
+          </div>
+          <form novalidate id="form">
+              <div class="row g-3 mb-3">
+                <div class="col">
+                  <label for="first-name" class="form-label">Primer nombre*</label>
+                  <input type="text" class="form-control" id="first-name" required>
+                </div>
+                <div class="col">
+                  <label for="second-name" class="form-label">Segundo nombre</label>
+                  <input type="text" class="form-control" id="second-name">
+                </div>
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col">
+                  <label for="first-lastname" class="form-label">Primer Apellido*</label>
+                  <input type="text" class="form-control" id="first-lastname" required>
+                </div>
+                <div class="col">
+                  <label for="second-lastname" class="form-label">Segundo Apellido</label>
+                  <input type="text" class="form-control" id="second-lastname">
+                </div>
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col">
+                  <label for="email" class="form-label">E-mail*</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="col">
+                  <label for="phone-number" class="form-label">Telefono</label>
+                  <input type="number" class="form-control" id="phone-number">
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary" id="save-settings">Guardar Cambios</button>
+              </div>
+          </form>
+        </div>
       </div>
     </div>
   </main>
+  <div class="alert alert-danger" role="alert" id="alert">
+    Debes rellenar todos los campos requeridos (*)
+  </div>
+  <div class="alert alert-success" role="alert" id="successAlert">
+    Debes rellenar todos los campos requeridos (*)
+  </div>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
@@ -75,6 +145,7 @@
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/alert.js"></script>
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
 </body>

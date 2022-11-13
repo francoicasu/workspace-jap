@@ -19,57 +19,6 @@ const modalContainerInputs = document.querySelectorAll('.form-modal-item')
 // payment modal
 const paymentModal = document.getElementById('payment-modal-background')
 
-// function showProductsCart(arr){
-//   let appendToHtml = ''
-  
-//   for(const products of arr){
-//     appendToHtml = `
-//       <div class="container cart-product-container">
-//         <div class="product-title">
-//           <h2>${products.name}</h2>
-//         </div>
-//         <div class="product-table-content">
-//           <div class="product-image">
-//             <img class="w-100" src="${products.image}">
-//           </div>
-
-//           <div class="product-price">
-//             <p>costo: ${products.currency} ${products.unitCost}</p>
-//           </div>
-
-//           <div class="counter-container">
-//             <div class="counter-btn-container minus" onclick="decrease()" id="minus">
-//               <span class="fas fa-minus"></span>
-//             </div>
-
-//             <div class="counter" id="counter">${products.count}</div>
-
-//             <div class="counter-btn-container plus" onclick="increase()" id="plus">
-//               <span class="fas fa-plus"></span>
-//             </div>
-
-//           </div>
-
-//           <div class="subtotal">
-//             <p>
-//               subtotal:
-//             </p>
-//             <p id="subtotal">
-//               ${products.currency} ${products.unitCost}
-//             </p>
-//           </div> 
-//         </div>
-//         <div class="cart-product-action-buttons">
-//             <span class="fas fa-trash"></span>
-//             Eliminar
-//         </div>
-//       </div>
-//     `
-//   }
-
-//   tableContainer.innerHTML = appendToHtml
-// }
-
 function showNewProductsCart(arr){
   let appendToHtml = ''
   for (const products of arr){
@@ -121,39 +70,18 @@ function showNewProductsCart(arr){
   newTableContainer.innerHTML = appendToHtml
 }
 
-// Alert
-
-const ALERT = document.getElementById('alert')
-
-function showErrorAlert(message){
-    ALERT.classList.add('show')
-    
-    ALERT.innerText = message
-
-    setTimeout(()=>{
-      ALERT.classList.remove('show')
-    }, 3000)
-}
-
-const ALERT_SUCCESS = document.getElementById('successAlert')
-
-function showSuccessAlert(message){
-  ALERT_SUCCESS.classList.add('show')
-    
-  ALERT_SUCCESS.innerText = message
-
-    setTimeout(()=>{
-      ALERT_SUCCESS.classList.remove('show')
-    }, 3000)
-}
-
-
-
-// Modal of address
+// add the 'show' class to the element that you put in the paramters
 function showTheModal(modal){
   modal.classList.add('show')
 }
 
+// remove the 'show' class to the element that you put in the paramters
+function closeModal(modal){
+  removeActiveClass()
+  modal.classList.remove('show')
+}
+
+// this function show the address that is saved in localStorage if is empty, show 'aun no hay direccion'
 function showAddress(){
   const newAddress = document.getElementById('new-address')
   let appendToHtml = ''
@@ -168,25 +96,31 @@ function showAddress(){
   newAddress.innerHTML = appendToHtml
   
 }
-
+// delete the address of localStorage
 function deleteAddress(){
   localStorage.removeItem('address')
   showAddress()
 }
 
+// this function is for addEventlistener of modalContainerInputs, this function add the 'active' class to clicked container
+function focusInputModal(){
+  modalContainerInputs.forEach(item =>
+    item.classList.remove('active'));
+    this.classList.add('active')
+}
+
+// this function is for addEventlistener of modalContainerInputs, this function remove the 'active' class
 function removeActiveClass(){
   modalContainerInputs.forEach(value =>{
     value.classList.remove('active')
   })
 }
 
-// save the addres in the localStorage
+// save the addres in localStorage
 function saveAddres(){
   const street = document.getElementById('street')
   const number = document.getElementById('number')
   const corner = document.getElementById('corner')
-  
-
   const address = {}
 
   const ERROR_MESSAGE = 'Completa todos los campos para poder agregar una direccion'
@@ -211,50 +145,7 @@ function saveAddres(){
   })
 }
 
-
-function closeModal(modal){
-  removeActiveClass()
-  modal.classList.remove('show')
-}
-
-function closePaymentModal(){
-  paymentModal.classList.remove('active')
-}
-
-
-// this function is for addEventlistener of modalContainerInputs, this function add the 'active' class to clicked container
-function focusInputModal(){
-  modalContainerInputs.forEach(item =>
-    item.classList.remove('active'));
-    this.classList.add('active')
-}
-
-// Cart counter action buttons of default product
-let counter = 1
-
-// this function increase the counter variable and display the result
-function increase(){
-  updateDisplay(++counter)
-}
-
-// this function decrease the counter variable and display the result
-function decrease(){
-  const ERROR_MESSAGE = 'No se puede poner menos de un producto'
-  if(counter <= 1){
-    return showErrorAlert(ERROR_MESSAGE)
-  }
-  return updateDisplay(--counter)
-}
-
-// this function show the counter variable
-function updateDisplay(num){
-  const counterInput = document.getElementById('counter')
-  counterInput.innerText = num
-  subTotal(cartProductList)
-}
-
 //Cart counter action button of new cart products
-
 function newIncrease(id){
   let currentCart = JSON.parse(localStorage.getItem('cartProduct'))
 
@@ -332,21 +223,12 @@ function subTotalPlus(){
   const subtotals = document.querySelectorAll('#new-subtotal')
   let UyuToDls;
   let arrToSum = []
-  let allSubtotals = []
   let appendToHtml = ''
   let sum;
   
   for (const result of subtotals){
     let num = parseInt(result.innerText.split(' ')[1])
-    allSubtotals += `
-    <div class="price-content">
-      <div class="price-text-container">
-        <p class="price-title">Subtotal: </p>
-        <p class="price-description">Costo unitaro del producto por cantidad</p>
-      </div>
-      <p>${result.innerText}</p>
-    </div>
-    `
+    
     UyuToDls = num
     if(result.innerText.includes('UYU')){
       UyuToDls = num / 41.20
@@ -364,7 +246,14 @@ function subTotalPlus(){
   
   if (!isNaN(taxResult.toFixed(2))){
     appendToHtml = `
-    ${allSubtotals}
+      <div class="price-content">
+        <div class="price-text-container">
+          <p class="price-title">Subtotal: </p>
+          <p class="price-description">Costo unitaro del producto por cantidad</p>
+        </div>
+        <p>USD ${sum}</p>
+      </div>
+
       <div class="price-content">
         <div class="price-text-container">
           <p class="price-title">Costo de envio: </p>
@@ -382,8 +271,6 @@ function subTotalPlus(){
     `
   }
 
-
-  
   priceTable.innerHTML = appendToHtml
 }
 
@@ -392,9 +279,11 @@ const creditCardCheck = document.getElementById('credit-card-check')
 const accountNumberCheck = document.getElementById('account-number-check')
 const formCreditCart = document.getElementById('modal_form-credit-card')
 const accountNumberInput = document.getElementById('account-number')
+const formAccountNumber = document.getElementById('modal-form-account-number')
+
+
 
 function disabledInputs(){
-
 
   for (const child of formCreditCart.children){
     if(creditCardCheck.checked){
@@ -421,47 +310,28 @@ function disabledInputAccountNumber(){
 }
 
 function finalizeBuy(){
-  const SUCCESS_MESSAGE = 'Su compra ha finalizado con exito'
   const textError = document.getElementById('text-error')
-
-  if (!localStorage.getItem('address') && select.value === '0'){
-
-    select.classList.add('is-invalid')
-    textError.classList.add('show-error')
-
-  } else if(!localStorage.getItem('address')){
-
-    select.classList.remove('is-invalid')
-    textError.classList.add('show-error')
-
-  } else if (select.value === '0'){
-
-    textError.classList.remove('show-error')
-    select.classList.add('is-invalid')
-    
-  } else {
-
-    textError.classList.remove('show-error')
-    select.classList.remove('is-invalid')
-
-  }
+  
+  // Conditional (ternary) operator
+  !localStorage.getItem('address') ? textError.classList.add('show-error') :  textError.classList.remove('show-error')
+  select.value === '0'? select.classList.add('is-invalid') : select.classList.remove('is-invalid')
 
   const paymentError = document.getElementById('payment-error')
 
-  for (const inputs of formCreditCart.children){
-    if (creditCardCheck.checked && inputs.children[1].value === ''){
-      paymentError.classList.add('show-error')
-    } else if (accountNumberCheck.checked && accountNumberInput.value === ''){
-      paymentError.classList.add('show-error')
-    } else {
-      paymentError.classList.remove('show-error')
-    }
+  if(!formCreditCart.checkValidity()){
+    paymentError.classList.add('show-error')
+    
+  }else if(!formAccountNumber.checkValidity()){
+    paymentError.classList.add('show-error')
 
-    if (creditCardCheck.checked && inputs.children[1].value !== '' || accountNumberCheck.checked && accountNumberInput.value !== '' && localStorage.getItem('address') && select.value !== '0'){
-      showSuccessAlert(SUCCESS_MESSAGE)
-    }
+  } else {
+    paymentError.classList.remove('show-error')
+
   }
 
+  if((formCreditCart.checkValidity() && formAccountNumber.checkValidity()) && (localStorage.getItem('address') && select.value !== '0')){
+    return showSuccessAlert('Su compra ha finalizado con exito')
+  }
 }
 
 function goToCategory(){

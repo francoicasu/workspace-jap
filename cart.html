@@ -54,21 +54,21 @@
         </label>
       </div>
       
-      <form action="" class="modal_form" id="modal_form-credit-card">
+      <form action="" class="modal_form" id="modal_form-credit-card" novalidate>
         <div class="form-modal-item">
           <label for="credit-card">Numero de tarjeta:</label>
           <input type="number" class="modal_item form-control" id="credit-card" required>
         </div>
         <div class="form-modal-item">
-          <label for="number">Codigo de seg.:</label>
-          <input type="number" class="modal_item form-control" id="number" required>
+          <label for="cvv">Codigo de seg.:</label>
+          <input type="number" class="modal_item form-control" id="cvv" required>
         </div>
         <div class="form-modal-item">
-          <label for="corner">Vencimiento MM:</label>
+          <label for="mm">Vencimiento MM:</label>
           <input type="number" class="modal_item form-control" id="mm" required>          
         </div>
         <div class="form-modal-item">
-          <label for="corner">Vencimiento YY:</label>
+          <label for="yy">Vencimiento YY:</label>
           <input type="number" class="modal_item form-control" id="yy" required>          
         </div>
       </form>
@@ -80,10 +80,10 @@
         </label>
       </div>
 
-      <form action="modal_form" id="modal-form-account-number">
+      <form action="" class="modal_form" id="modal-form-account-number">
         <div class="form-modal-item">
           <label for="account-number">Numero de cuenta</label>
-          <input type="number" id="account-number">
+          <input type="number" class="modal_item form-control" id="account-number" required>
         </div>
       </form>
 
@@ -96,12 +96,13 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
+      <a class="navbar-brand" href="main.html" id="logo-navbar">e•mercado</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between align-items-center">
+        <ul class="navbar-nav w-100 gap-4 justify-content-end align-items-center">
           <li class="nav-item">
             <a class="nav-link" href="main.html">Inicio</a>
           </li>
@@ -115,9 +116,9 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="options_btn">
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="cart.html" id="my-cart">Mi Carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html" id="my-profile">Mi Perfil</a></li>
-              <li><a class="dropdown-item" href="index.html" id="log-out">Salir</a></li>
+              <li><a class="dropdown-item" href="my-profile.html" id="my-profile">Mi Perfil <img class="avatar-nav-profile" src="" alt=""></a></li>
+              <li><a class="dropdown-item" href="cart.html" id="my-cart">Mi Carrito <span class="nav-icon fas fa-shopping-cart"></span></a></li>
+              <li><a class="dropdown-item" href="index.html" id="log-out">Salir <span class="nav-icon fas fa-sign-out-alt"></span></a></li>
             </ul>
           </li>
         </ul>
@@ -239,6 +240,7 @@
     </div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/alert.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
 </body>
