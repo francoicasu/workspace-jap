@@ -63,7 +63,7 @@ if (localStorage.getItem('email')){
 if(localStorage.getItem('userSettings')){
   let avatar = JSON.parse(localStorage.getItem('userSettings')).avatar
 
-  avatar !== '' ? avatarNavProfile.src = `data:image/png;base64,${avatar}` : avatarNavProfile.src = '../img/img_perfil.png'
+  avatar !== '' ? avatarNavProfile.src = `data:image/png;base64,${avatar}` : avatarNavProfile.src = '../img/img_profile.png'
 
   
 }

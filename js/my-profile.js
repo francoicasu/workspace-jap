@@ -97,7 +97,7 @@ function showChanges(arr){
         if (arr.avatar !== ''){
             avatar.style.background = `url(data:image/png;base64,${arr.avatar})  no-repeat center/100%`
         } else{
-            avatar.style.background = `url('../img/img_perfil.png')  no-repeat center/100%` 
+            avatar.style.background = `url('../img/img_profile.png')  no-repeat center/100%` 
         }
         
     }

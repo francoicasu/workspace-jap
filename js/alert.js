@@ -1,5 +1,3 @@
-
-
 // return an alert with the message that you put in the parameters
 const ALERT = document.getElementById('alert')
 
